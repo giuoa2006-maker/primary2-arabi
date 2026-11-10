@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>سنة ثانية تخصص ابتدائي - لغة عربية</title>
+    <style>
+        :root {
+            --primary: #6d28d9;
+            --primary-light: #8b5cf6;
+            --pink: #ec4899;
+            --secondary: #0f172a;
+            --bg: #fdf8f6;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #f3e8ff;
+            --accent: #10b981;
+            --danger: #ef4444;
+        }
+        [data-theme="dark"] {
+            --primary: #7c3aed;
+            --primary-light: #a78bfa;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+        header {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+        .header-btns {
+            display: flex;
+            gap: 8px;
+        }
+        .icon-btn {
+            background: rgba(255,255,255,0.22);
+            border: 1px solid rgba(255,255,255,0.35);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .icon-btn.admin-active {
+            background: #10b981;
+            border-color: #059669;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 14px;
+        }
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .nav-card {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        .nav-card.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
+        .sub-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .sub-tab {
+            padding: 8px 14px;
+            border-radius: 22px;
+            border: 1.5px solid #d8b4fe;
+            background: var(--card-bg);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .sub-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        h2 {
+            font-size: 1.08rem;
+            color: var(--primary);
+        }
+        [data-theme="dark"] h2 {
+            color: var(--primary-light);
+        }
+        .admin-only {
+            display: none !important;
+        }
+        body.is-admin .admin-only {
+            display: inline-flex !important;
+        }
+        body.is-admin .admin-block {
+            display: block !important;
+        }
+        .admin-block {
+            display: none;
+        }
+        .btn-pink {
+            background: var(--pink);
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-publish {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-open-module {
+            background: linear-gradient(135deg, var(--primary), var(--pink));
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(236, 72, 153, 0.3);
+            white-space: nowrap;
+        }
+        .back-btn {
+            background: var(--card-bg);
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+            padding: 7px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
+        }
+        .upload-box {
+            background: rgba(139, 92, 246, 0.05);
+            border: 2px dashed #c4b5fd;
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 10px;
+            margin-bottom: 12px;
+        }
+        .input-text {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        .btn-green {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.88rem;
+        }
+        .pdf-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+        .pdf-badge {
+            background: #f97316;
+            color: white;
+            font-weight: 800;
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-size: 0.78rem;
+        }
+        .pdf-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-grow: 1;
+        }
+        .pdf-link:hover {
+            opacity: 0.85;
+        }
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.12);
+            color: var(--danger);
+            border: none;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .caesar-box, .affine-box, .decipher-caesar-box, .decipher-linear-box {
+            background: #fef3c7;
+            border: 1px solid #fde68a;
+            color: #78350f;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+        .affine-box {
+            background: #e0f2fe;
+            border-color: #bae6fd;
+            color: #0369a1;
+        }
+        .decipher-caesar-box {
+            background: #fae8ff;
+            border-color: #f5d0fe;
+            color: #86198f;
+        }
+        .decipher-linear-box {
+            background: #ccfbf1;
+            border-color: #99f6e4;
+            color: #115e59;
+        }
+        [data-theme="dark"] .caesar-box { background: #1e293b; border-color: #fbbf24; color: #fef3c7; }
+        [data-theme="dark"] .affine-box { background: #0f172a; border-color: #38bdf8; color: #bae6fd; }
+        [data-theme="dark"] .decipher-caesar-box { background: #1e293b; border-color: #e879f9; color: #f5d0fe; }
+        [data-theme="dark"] .decipher-linear-box { background: #0f172a; border-color: #2dd4bf; color: #99f6e4; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.84rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 8px 6px;
+            text-align: center;
+        }
+        th {
+            background: rgba(109, 40, 217, 0.1);
+        }
+        .clickable-row {
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .clickable-row:hover {
+            background: rgba(139, 92, 246, 0.08);
+        }
+        .calc-card-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        .calc-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .calc-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+        .calc-input {
+            width: 68px;
+            padding: 6px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            background: var(--card-bg);
+            color: var(--text);
+        }
+        .mod-stats {
+            font-size: 0.82rem;
+            color: var(--primary);
+            font-weight: 700;
+            background: rgba(109, 40, 217, 0.08);
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+        [data-theme="dark"] .mod-stats {
+            color: var(--primary-light);
+        }
+        .result-box {
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: bold;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--pink));
+            color: white;
+            border-radius: 12px;
+            margin-top: 14px;
+        }
+        .formula-banner {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            font-size: 0.83rem;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        .modal-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📚 سنة ثانية ابتدائي - لغة عربية</h1>
+    <div class="header-btns">
+        <button class="icon-btn" id="adminBtn" onclick="openAdminModal()">🔒 المشرف</button>
+        <button class="icon-btn" onclick="toggleTheme()">🌙</button>
+    </div>
+</header>
+
+<div class="modal-overlay" id="adminModal">
+    <div class="modal-box">
+        <h3 style="margin-bottom: 10px; color: var(--primary);">🔐 دخول المشرف (الأدمين)</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">أدخل الرمز السري لتفعيل أزرار إضافة أو حذف الدروس والملفات:</p>
+        <input type="password" id="adminPinInput" class="input-text" placeholder="الرمز السري..." style="text-align:center;">
+        <div style="display:flex; gap:8px; justify-content:center;">
+            <button class="btn-green" onclick="verifyAdmin()">تأكيد</button>
+            <button class="icon-btn" style="background:#64748b;" onclick="closeAdminModal()">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- زر خاص بالمشرف لحفظ الموقع بكل الدروس المضافة لرفعه على Vercel -->
+    <button class="btn-publish admin-only" onclick="exportSiteForVercel()">
+        🌍 حفظ وتنزيل نسخة الموقع (بكل الدروس) لرفعها على Vercel
+    </button>
+
+    <div class="main-grid">
+        <div class="nav-card active" id="nav-sem1" onclick="showTab('sem1', this)">📖 السداسي 1</div>
+        <div class="nav-card" id="nav-sem2" onclick="showTab('sem2', this)">📘 السداسي 2</div>
+        <div class="nav-card" id="nav-calc" onclick="showTab('calc', this)">🧮 حاسبة المعدل</div>
+    </div>
+
+    <!-- قسم السداسي 1 -->
+    <div id="tab-sem1" class="tab-content">
+        <div id="sem1-overview" class="card">
+            <h2>📖 مقاييس السداسي الأول (المعاملات: 20 | 24 سا)</h2>
+            <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:8px;">اضغط على أي مقياس لفتح الدروس الخاصة به وإدارتها:</p>
+            <table id="table-sem1">
+                <thead>
+                    <tr><th>المقياس</th><th>المعامل</th><th>المحاضرة</th><th>TD/TP</th><th>الدروس والتحكم</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- واجهة عرض مقياس مخصص (ديناميكية لكل المواد) -->
+        <div id="module-custom-view" style="display:none;">
+            <button class="back-btn" onclick="closeModuleView()">🔙 العودة إلى القائمة</button>
+
+            <div class="card">
+                <div class="card-header-flex">
+                    <h2 id="module-title-header">📐 إدارة دروس المقياس</h2>
+                    <button class="btn-pink admin-only" onclick="toggleUploadBox('up-mod-custom')">+ إضافة درس (ملف أو رابط)</button>
+                </div>
+
+                <div id="up-mod-custom" class="upload-box admin-block" style="display:none;">
+                    <input type="text" id="title-mod-custom" class="input-text" placeholder="1. عنوان الدرس (مثلاً: المحاضرة رقم 1)">
+                    
+                    <div style="background:var(--card-bg); padding:10px; border-radius:10px; border:1px solid var(--border); margin-bottom:10px;">
+                        <label style="font-size:0.82rem; font-weight:700; color:var(--primary); display:block; margin-bottom:6px;">الطريقة أ: وضع رابط مباشر (Google Drive / Telegram) - موصى به لـ Vercel:</label>
+                        <input type="url" id="url-mod-custom" class="input-text" placeholder="الصق رابط الدرس هنا https://..." style="margin-bottom:6px;">
+                        <button class="btn-green" onclick="handleModuleUrlAdd()">🔗 إضافة الدرس بالرابط</button>
+                    </div>
+
+                    <div style="background:var(--card-bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
+                        <label style="font-size:0.82rem; font-weight:700; color:var(--pink); display:block; margin-bottom:6px;">الطريقة ب: أو اختر ملف PDF مباشرة من هاتفك:</label>
+                        <input type="file" id="file-mod-custom" accept=".pdf" class="input-text" onchange="handleModulePdfUpload(event)" style="margin-bottom:4px;">
+                    </div>
+                </div>
+
+                <div id="list-mod-custom" style="margin-top:12px;"></div>
+            </div>
+
+            <!-- حاوية ألعاب التشفير (تظهر فقط في مقاييس الرياضيات) -->
+            <div id="encryption-games-container" style="display:none;">
+                <div class="caesar-box">
+                    <h2 style="color:inherit; margin-bottom:6px;">🕹️ لعبة شيفرة قيصر (التشفير)</h2>
+                    <p style="font-size:0.85rem; margin-bottom:10px;">اكتب النص الصريح وحرّك المفتاح k للتشفير:</p>
+                    <input type="text" id="caesarInput" class="input-text" value="HELLO" oninput="runCaesar()" style="text-align:center; font-weight:bold; background:white; color:#1e293b;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin:8px 0;">
+                        <span>المفتاح k = <strong id="caesarKeyVal">3</strong></span>
+                        <input type="range" id="caesarSlider" min="1" max="25" value="3" oninput="runCaesar()" style="width:65%;">
+                    </div>
+                    <div style="text-align:center; padding:10px; background:rgba(255,255,255,0.7); border-radius:10px; font-weight:800; font-size:1.1rem; color:#1e40af;" id="caesarOutput">KHOOR</div>
+                </div>
+
+                <div class="decipher-caesar-box">
+                    <h2 style="color:inherit; margin-bottom:6px;">🔓 لعبة فك تشفير قيصر</h2>
+                    <p style="font-size:0.85rem; margin-bottom:10px;">اكتب النص المشفر وحدد المفتاح k لاسترجاع النص الأصلي:</p>
+                    <input type="text" id="decipherCaesarInput" class="input-text" value="KHOOR" oninput="runDecipherCaesar()" style="text-align:center; font-weight:bold; background:white; color:#1e293b;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin:8px 0;">
+                        <span>مفتاح الفك k = <strong id="decipherCaesarKeyVal">3</strong></span>
+                        <input type="range" id="decipherCaesarSlider" min="1" max="25" value="3" oninput="runDecipherCaesar()" style="width:65%;">
+                    </div>
+                    <div style="text-align:center; padding:10px; background:rgba(255,255,255,0.7); border-radius:10px; font-weight:800; font-size:1.1rem; color:#86198f;" id="decipherCaesarOutput">HELLO</div>
+                </div>
+
+                <div class="affine-box">
+                    <h2 style="color:inherit; margin-bottom:6px;">🧮 لعبة التشفير الخطي (التشفير)</h2>
+                    <p style="font-size:0.85rem; margin-bottom:10px;">علاقة التشفير: E(x) = (a·x + b) mod 26</p>
+                    <input type="text" id="linearInput" class="input-text" value="MATH" oninput="runLinear()" style="text-align:center; font-weight:bold; background:white; color:#1e293b;">
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:8px;">
+                        <div>
+                            <label style="font-size:0.8rem; font-weight:700;">المعامل a:</label>
+                            <input type="number" id="linearA" class="input-text" value="3" min="1" max="25" step="2" oninput="runLinear()" style="margin-top:4px; text-align:center; background:white; color:#1e293b;">
+                        </div>
+                        <div>
+                            <label style="font-size:0.8rem; font-weight:700;">المعامل b:</label>
+                            <input type="number" id="linearB" class="input-text" value="2" min="0" max="25" oninput="runLinear()" style="margin-top:4px; text-align:center; background:white; color:#1e293b;">
+                        </div>
+                    </div>
+                    <div style="text-align:center; padding:10px; background:rgba(255,255,255,0.85); border-radius:10px; font-weight:800; font-size:1.1rem; color:#0369a1;" id="linearOutput">PKMF</div>
+                </div>
+
+                <div class="decipher-linear-box">
+                    <h2 style="color:inherit; margin-bottom:6px;">🔑 لعبة فك التشفير الخطي</h2>
+                    <p style="font-size:0.85rem; margin-bottom:10px;">فك التشفير: D(y) = a⁻¹·(y - b) mod 26</p>
+                    <input type="text" id="decipherLinearInput" class="input-text" value="PKMF" oninput="runDecipherLinear()" style="text-align:center; font-weight:bold; background:white; color:#1e293b;">
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:8px;">
+                        <div>
+                            <label style="font-size:0.8rem; font-weight:700;">المعامل a:</label>
+                            <input type="number" id="decipherLinearA" class="input-text" value="3" min="1" max="25" step="2" oninput="runDecipherLinear()" style="margin-top:4px; text-align:center; background:white; color:#1e293b;">
+                        </div>
+                        <div>
+                            <label style="font-size:0.8rem; font-weight:700;">المعامل b:</label>
+                            <input type="number" id="decipherLinearB" class="input-text" value="2" min="0" max="25" oninput="runDecipherLinear()" style="margin-top:4px; text-align:center; background:white; color:#1e293b;">
+                        </div>
+                    </div>
+                    <div style="text-align:center; padding:10px; background:rgba(255,255,255,0.85); border-radius:10px; font-weight:800; font-size:1.1rem; color:#115e59;" id="decipherLinearOutput">MATH</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم السداسي 2 -->
+    <div id="tab-sem2" class="tab-content" style="display:none;">
+        <div id="sem2-overview" class="card">
+            <h2>📘 مقاييس السداسي الثاني (المعاملات: 20 | 24 سا)</h2>
+            <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:8px;">اضغط على أي مقياس لفتح الدروس الخاصة به وإدارتها:</p>
+            <table id="table-sem2">
+                <thead>
+                    <tr><th>المقياس</th><th>المعامل</th><th>المحاضرة</th><th>TD</th><th>الدروس والتحكم</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- حاسبة المعدل -->
+    <div id="tab-calc" class="tab-content" style="display:none;">
+        <div class="card">
+            <h2>🧮 حاسبة المعدل الفصلي (السداسي 1 أو 2)</h2>
+            <div class="sub-tabs" style="margin-top:10px;">
+                <button class="sub-tab active" onclick="switchCalcSem(1, this)">حساب السداسي الأول</button>
+                <button class="sub-tab" onclick="switchCalcSem(2, this)">حساب السداسي الثاني</button>
+            </div>
+
+            <div class="formula-banner">
+                <strong>📌 طريقة حساب معدل كل مقياس:</strong><br>
+                • <strong>محاضرة (كُور) + TD:</strong> (0.7 × نقطة المحاضرة + 0.3 × نقطة TD) × المعامل<br>
+                • <strong>محاضرة (كُور) فقط:</strong> (نقطة المحاضرة × 1) × المعامل<br>
+                • <strong>TD أو TP فقط:</strong> (نقطة TD/TP × 1) × المعامل
+            </div>
+
+            <div id="calc-list"></div>
+            <div class="result-box" id="gpa-result">المعدل الفصلي: 10.00 / 20</div>
+        </div>
+    </div>
+</div>
+
+<!-- قاعدة البيانات المدمجة التي تنتقل مع ملف الموقع إلى Vercel -->
+<script id="embedded-db">
+    window.EMBEDDED_FILES = {};
+</script>
+
+<script>
+    const ADMIN_PIN = "2026";
+    let isAdmin = false;
+    let currentCalcSem = 1;
+    let activeSemTab = 1;
+    let activeModuleName = "";
+
+    const semModules = {
+        1: [
+            { name: "النحو العربي 1", coef: 3, lec: "1.5 سا", td: "1.5 سا TD", type: "both" },
+            { name: "الصرف العربي 1", coef: 3, lec: "1.5 سا", td: "1.5 سا TD", type: "both" },
+            { name: "اللسانيات العامة 1", coef: 2, lec: "1.5 سا", td: "-", type: "cours" },
+            { name: "قضايا النقد العربي 1", coef: 2, lec: "1.5 سا", td: "1.5 سا TD", type: "both" },
+            { name: "التربية الإسلامية 1", coef: 2, lec: "1.5 سا", td: "-", type: "cours" },
+            { name: "الرياضيات 3", coef: 2, lec: "1.5 سا", td: "1.5 سا TD", type: "both", isMath: true },
+            { name: "علم الأحياء 1", coef: 2, lec: "3 سا", td: "-", type: "cours" },
+            { name: "علم نفس النمو 1", coef: 2, lec: "1.5 سا", td: "1.5 سا TD", type: "both" },
+            { name: "الذكاء الاصطناعي في التعلم", coef: 1, lec: "-", td: "1.5 سا TP", type: "tp" },
+            { name: "اللغة الإنجليزية 1", coef: 1, lec: "-", td: "1.5 سا TD", type: "td" }
+        ],
+        2: [
+            { name: "النحو العربي 2", coef: 3, lec: "1.5 سا", td: "1.5 سا TD", type: "both" },
+            { name: "الصرف العربي 2", coef: 3, lec: "1.5 سا", td: "1.5 سا TD", type: "both" },
+            { name: "اللسانيات العامة 2", coef: 2, lec: "1.5 سا", td: "-", type: "cours" },
+            { name: "قضايا النقد العربي 2", coef: 2, lec: "1.5 سا", td: "1.5 سا TD", type: "both" },
+            { name: "التربية الإسلامية 2", coef: 2, lec: "1.5 سا", td: "-", type: "cours" },
+            { name: "الرياضيات 4", coef: 2, lec: "1.5 سا", td: "1.5 سا TD", type: "both", isMath: true },
+            { name: "علم الأحياء 2", coef: 2, lec: "3 سا", td: "-", type: "cours" },
+            { name: "علم نفس النمو 2", coef: 2, lec: "1.5 سا", td: "1.5 سا TD", type: "both" },
+            { name: "تاريخ الجزائر", coef: 1, lec: "1.5 سا", td: "-", type: "cours" },
+            { name: "اللغة الإنجليزية 2", coef: 1, lec: "-", td: "1.5 سا TD", type: "td" }
+        ]
+    };
+
+    function getStorageKey(modName) {
+        return 'mod_files_' + modName.replace(/\s+/g, '_');
+    }
+
+    function getModuleStoredFiles(modName) {
+        const storageKey = getStorageKey(modName);
+        const saved = localStorage.getItem(storageKey);
+        if (saved) {
+            return JSON.parse(saved);
+        }
+        if (window.EMBEDDED_FILES && window.EMBEDDED_FILES[storageKey]) {
+            return window.EMBEDDED_FILES[storageKey];
+        }
+        return [];
+    }
+
+    function saveModuleStoredFiles(modName, items) {
+        const storageKey = getStorageKey(modName);
+        localStorage.setItem(storageKey, JSON.stringify(items));
+        if (!window.EMBEDDED_FILES) window.EMBEDDED_FILES = {};
+        window.EMBEDDED_FILES[storageKey] = items;
+    }
+
+    // تصدير ملف index.html مدمجاً بكل الدروس المرفوعة لرفعه على Vercel ليظهر للجميع
+    function exportSiteForVercel() {
+        const allModules = [...semModules[1], ...semModules[2]];
+        const fullDb = {};
+        allModules.forEach(m => {
+            const key = getStorageKey(m.name);
+            const files = getModuleStoredFiles(m.name);
+            if (files.length > 0) {
+                fullDb[key] = files;
+            }
+        });
+
+        // إيقاف وضع المشرف في النسخة المصدرة حتى لا تفتح أزرار الحذف للطلاب
+        const wasAdmin = document.body.classList.contains('is-admin');
+        document.body.classList.remove('is-admin');
+        const adminBtn = document.getElementById('adminBtn');
+        const oldBtnText = adminBtn.innerText;
+        adminBtn.innerText = "🔒 المشرف";
+        adminBtn.classList.remove('admin-active');
+
+        // تحديث سكريبت قاعدة البيانات المدمجة داخل الصفحة
+        const dbScript = document.getElementById('embedded-db');
+        dbScript.textContent = `\n    window.EMBEDDED_FILES = ${JSON.stringify(fullDb)};\n`;
+
+        const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
+        // إعادة حالة المشرف للمستخدم الحالي
+        if (wasAdmin) {
+            document.body.classList.add('is-admin');
+            adminBtn.innerText = oldBtnText;
+            adminBtn.classList.add('admin-active');
+        }
+
+        const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "index.html";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        alert("تم تنزيل ملف index.html الجديد وبداخله كل الدروس التي أضفتها! ارفعه الآن على Vercel ليظهر لجميع الطلبة.");
+    }
+
+    function renderModuleTables() {
+        [1, 2].forEach(sem => {
+            const tbody = document.querySelector(`#table-sem${sem} tbody`);
+            tbody.innerHTML = '';
+            semModules[sem].forEach(m => {
+                tbody.innerHTML += `
+                    <tr class="clickable-row" onclick="openModule('${m.name}', ${sem})">
+                        <td><strong style="color:var(--primary);">${m.name}</strong></td>
+                        <td>${m.coef}</td>
+                        <td>${m.lec}</td>
+                        <td>${m.td}</td>
+                        <td><button class="btn-open-module">📂 إدارة الدروس ${getModuleFileCountBadge(m.name)}</button></td>
+                    </tr>
+                `;
+            });
+        });
+    }
+
+    function getModuleFileCountBadge(modName) {
+        const files = getModuleStoredFiles(modName);
+        return files.length > 0 ? `(${files.length})` : '';
+    }
+
+    function openModule(modName, sem) {
+        activeModuleName = modName;
+        activeSemTab = sem;
+        const modObj = [...semModules[1], ...semModules[2]].find(m => m.name === modName);
+        
+        document.getElementById('tab-sem1').style.display = 'block';
+        document.getElementById('tab-sem2').style.display = 'none';
+        document.getElementById('sem1-overview').style.display = 'none';
+        document.getElementById('sem2-overview').style.display = 'none';
+        
+        const view = document.getElementById('module-custom-view');
+        document.getElementById('module-title-header').innerText = `📐 دروس وملفات مقياس: ${modName}`;
+        
+        const gamesContainer = document.getElementById('encryption-games-container');
+        if (modObj && modObj.isMath) {
+            gamesContainer.style.display = 'block';
+            runCaesar();
+            runDecipherCaesar();
+            runLinear();
+            runDecipherLinear();
+        } else {
+            gamesContainer.style.display = 'none';
+        }
+        
+        renderModuleFiles();
+        view.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function closeModuleView() {
+        document.getElementById('module-custom-view').style.display = 'none';
+        renderModuleTables();
+        if (activeSemTab === 1) {
+            document.getElementById('tab-sem1').style.display = 'block';
+            document.getElementById('tab-sem2').style.display = 'none';
+            document.getElementById('sem1-overview').style.display = 'block';
+        } else {
+            document.getElementById('tab-sem1').style.display = 'none';
+            document.getElementById('tab-sem2').style.display = 'block';
+            document.getElementById('sem2-overview').style.display = 'block';
+        }
+    }
+
+    function switchCalcSem(sem, btn) {
+        currentCalcSem = sem;
+        btn.parentElement.querySelectorAll('.sub-tab').forEach(el => el.classList.remove('active'));
+        btn.classList.add('active');
+        initCalc();
+    }
+
+    function initCalc() {
+        const container = document.getElementById('calc-list');
+        container.innerHTML = '';
+        const list = semModules[currentCalcSem];
+        list.forEach((m, idx) => {
+            let inputsHtml = '';
+            let typeBadge = '';
+            if (m.type === 'both') {
+                typeBadge = '0.7 كور + 0.3 TD';
+                inputsHtml = `
+                    <div class="input-group">
+                        <label>المحاضرة (0.7):</label>
+                        <input type="number" class="calc-input" min="0" max="20" step="0.25" value="10" oninput="calculateGPA()" id="cours-${idx}">
+                    </div>
+                    <div class="input-group">
+                        <label>TD (0.3):</label>
+                        <input type="number" class="calc-input" min="0" max="20" step="0.25" value="10" oninput="calculateGPA()" id="td-${idx}">
+                    </div>
+                `;
+            } else if (m.type === 'cours') {
+                typeBadge = 'محاضرة فقط × 1';
+                inputsHtml = `
+                    <div class="input-group">
+                        <label>المحاضرة (×1):</label>
+                        <input type="number" class="calc-input" min="0" max="20" step="0.25" value="10" oninput="calculateGPA()" id="cours-${idx}">
+                    </div>
+                `;
+            } else {
+                const labelName = (m.type === 'tp') ? 'TP (×1):' : 'TD (×1):';
+                typeBadge = (m.type === 'tp') ? 'TP فقط × 1' : 'TD فقط × 1';
+                inputsHtml = `
+                    <div class="input-group">
+                        <label>${labelName}</label>
+                        <input type="number" class="calc-input" min="0" max="20" step="0.25" value="10" oninput="calculateGPA()" id="td-${idx}">
+                    </div>
+                `;
+            }
+
+            container.innerHTML += `
+                <div class="calc-card-item">
+                    <div class="calc-top">
+                        <span>${m.name} <span style="color:var(--primary);">(معامل ${m.coef})</span></span>
+                        <span style="font-size:0.76rem; color:var(--text-muted);">${typeBadge}</span>
+                    </div>
+                    <div class="calc-inputs">
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">${inputsHtml}</div>
+                        <div class="mod-stats" id="mod-res-${idx}">المعدل: 10.00 | بالمعامل: ${(10 * m.coef).toFixed(2)}</div>
+                    </div>
+                </div>
+            `;
+        });
+        calculateGPA();
+    }
+
+    function calculateGPA() {
+        let totalWeighted = 0;
+        let totalCoef = 0;
+        const list = semModules[currentCalcSem];
+
+        list.forEach((m, idx) => {
+            let modAvg = 0;
+            if (m.type === 'both') {
+                const c = parseFloat(document.getElementById('cours-' + idx).value) || 0;
+                const t = parseFloat(document.getElementById('td-' + idx).value) || 0;
+                modAvg = (0.7 * c) + (0.3 * t);
+            } else if (m.type === 'cours') {
+                const c = parseFloat(document.getElementById('cours-' + idx).value) || 0;
+                modAvg = c * 1;
+            } else {
+                const t = parseFloat(document.getElementById('td-' + idx).value) || 0;
+                modAvg = t * 1;
+            }
+
+            const weighted = modAvg * m.coef;
+            totalWeighted += weighted;
+            totalCoef += m.coef;
+
+            const statEl = document.getElementById('mod-res-' + idx);
+            if (statEl) {
+                statEl.innerText = `معدل المقياس: ${modAvg.toFixed(2)} | بالمعامل: ${weighted.toFixed(2)}`;
+            }
+        });
+
+        const gpa = (totalWeighted / totalCoef).toFixed(2);
+        document.getElementById('gpa-result').innerText = `المعدل الفصلي العام: ${gpa} / 20 (المجموع: ${totalWeighted.toFixed(2)} / 400)`;
+    }
+
+    function renderModuleFiles() {
+        const list = document.getElementById('list-mod-custom');
+        const items = getModuleStoredFiles(activeModuleName);
+        list.innerHTML = '';
+        if (items.length === 0) {
+            list.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding:10px;">لا توجد دروس مضافة لهذا المقياس حالياً. اضغط على زر "+ إضافة درس" (بعد تفعيل وضع المشرف).</p>`;
+            return;
+        }
+        items.forEach((item, idx) => {
+            const isExternalUrl = item.data && item.data.startsWith('http');
+            const linkAttr = isExternalUrl ? `href="${item.data}" target="_blank"` : `href="${item.data}" download="${item.title}.pdf"`;
+            let linkHtml = `<a ${linkAttr} class="pdf-link">
+                <span class="pdf-badge">PDF</span>
+                <div>
+                    <div style="font-weight:700; font-size:0.92rem; color:var(--primary);">${item.title}</div>
+                    <div style="font-size:0.78rem; color:var(--text-muted);">${item.meta || 'ملف PDF مرفق • اضغط للفتح أو التحميل'}</div>
+                </div>
+            </a>`;
+
+            list.innerHTML += `
+                <div class="pdf-item">
+                    ${linkHtml}
+                    <button class="delete-btn admin-only" onclick="deleteModuleFile(${idx})" title="حذف الملف">🗑️</button>
+                </div>
+            `;
+        });
+    }
+
+    function handleModuleUrlAdd() {
+        if (!isAdmin) return;
+        const titleInput = document.getElementById('title-mod-custom');
+        const urlInput = document.getElementById('url-mod-custom');
+        const url = urlInput.value.trim();
+        if (!url) {
+            alert("يرجى لصق رابط الدرس أولاً!");
+            return;
+        }
+        const title = titleInput.value.trim() || "درس مرفق (رابط)";
+        const items = getModuleStoredFiles(activeModuleName);
+        items.push({
+            title: title,
+            data: url,
+            meta: `رابط خارجي مباشر • ${new Date().toLocaleDateString('ar-DZ')}`
+        });
+        saveModuleStoredFiles(activeModuleName, items);
+        titleInput.value = '';
+        urlInput.value = '';
+        document.getElementById('up-mod-custom').style.display = 'none';
+        renderModuleFiles();
+        alert("تمت إضافة الرابط بنجاح! لا تنسَ الضغط على الزر الأخضر في الأعلى لتنزيل نسخة الموقع المحدثة لـ Vercel.");
+    }
+
+    function handleModulePdfUpload(event) {
+        if (!isAdmin) return;
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64Data = e.target.result;
+            const titleInput = document.getElementById('title-mod-custom');
+            const title = titleInput.value.trim() || file.name.replace(/\.[^/.]+$/, "");
+            
+            const items = getModuleStoredFiles(activeModuleName);
+            items.push({
+                title: title,
+                data: base64Data,
+                meta: `ملف مدمج • ${(file.size / 1024).toFixed(1)} KB • ${new Date().toLocaleDateString('ar-DZ')}`
+            });
+            saveModuleStoredFiles(activeModuleName, items);
+            titleInput.value = '';
+            event.target.value = '';
+            document.getElementById('up-mod-custom').style.display = 'none';
+            renderModuleFiles();
+            alert("تمت إضافة الدرس! اضغط الآن على الزر الأخضر في أعلى التطبيق (حفظ وتنزيل نسخة الموقع) لترفعها على Vercel فيظهر للجميع.");
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function deleteModuleFile(idx) {
+        if (!isAdmin) return;
+        if (!confirm("هل أنت متأكد من حذف هذا الدرس؟")) return;
+        const items = getModuleStoredFiles(activeModuleName);
+        items.splice(idx, 1);
+        saveModuleStoredFiles(activeModuleName, items);
+        renderModuleFiles();
+    }
+
+    function toggleUploadBox(id) {
+        if (!isAdmin) return;
+        const el = document.getElementById(id);
+        el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+    }
+
+    function openAdminModal() {
+        if (isAdmin) {
+            isAdmin = false;
+            document.body.classList.remove('is-admin');
+            const btn = document.getElementById('adminBtn');
+            btn.innerText = "🔒 المشرف";
+            btn.classList.remove('admin-active');
+            renderModuleTables();
+            if (activeModuleName) renderModuleFiles();
+            return;
+        }
+        document.getElementById('adminPinInput').value = '';
+        document.getElementById('adminModal').style.display = 'flex';
+    }
+
+    function closeAdminModal() {
+        document.getElementById('adminModal').style.display = 'none';
+    }
+
+    function verifyAdmin() {
+        const pin = document.getElementById('adminPinInput').value.trim();
+        if (pin === ADMIN_PIN) {
+            isAdmin = true;
+            document.body.classList.add('is-admin');
+            const btn = document.getElementById('adminBtn');
+            btn.innerText = "🔓 وضع المشرف مفعّل";
+            btn.classList.add('admin-active');
+            closeAdminModal();
+            renderModuleTables();
+            if (activeModuleName) renderModuleFiles();
+        } else {
+            alert("الرمز السري غير صحيح!");
+        }
+    }
+
+    function runCaesar() {
+        const el = document.getElementById('caesarInput');
+        if(!el) return;
+        const text = el.value.toUpperCase();
+        const k = parseInt(document.getElementById('caesarSlider').value);
+        document.getElementById('caesarKeyVal').innerText = k;
+        let out = '';
+        for (let i = 0; i < text.length; i++) {
+            const code = text.charCodeAt(i);
+            if (code >= 65 && code <= 90) {
+                out += String.fromCharCode(((code - 65 + k) % 26) + 65);
+            } else {
+                out += text[i];
+            }
+        }
+        document.getElementById('caesarOutput').innerText = out || '...';
+    }
+
+    function runDecipherCaesar() {
+        const el = document.getElementById('decipherCaesarInput');
+        if(!el) return;
+        const text = el.value.toUpperCase();
+        const k = parseInt(document.getElementById('decipherCaesarSlider').value);
+        document.getElementById('decipherCaesarKeyVal').innerText = k;
+        let out = '';
+        for (let i = 0; i < text.length; i++) {
+            const code = text.charCodeAt(i);
+            if (code >= 65 && code <= 90) {
+                out += String.fromCharCode(((code - 65 - k + 26) % 26) + 65);
+            } else {
+                out += text[i];
+            }
+        }
+        document.getElementById('decipherCaesarOutput').innerText = out || '...';
+    }
+
+    function runLinear() {
+        const el = document.getElementById('linearInput');
+        if(!el) return;
+        const text = el.value.toUpperCase();
+        const a = parseInt(document.getElementById('linearA').value) || 1;
+        const b = parseInt(document.getElementById('linearB').value) || 0;
+        let out = '';
+        for (let i = 0; i < text.length; i++) {
+            const code = text.charCodeAt(i);
+            if (code >= 65 && code <= 90) {
+                let x = code - 65;
+                let encrypted = (a * x + b) % 26;
+                out += String.fromCharCode(encrypted + 65);
+            } else {
+                out += text[i];
+            }
+        }
+        document.getElementById('linearOutput').innerText = out || '...';
+    }
+
+    function modInverse(a, m) {
+        a = ((a % m) + m) % m;
+        for (let x = 1; x < m; x++) {
+            if ((a * x) % m === 1) return x;
+        }
+        return 1;
+    }
+
+    function runDecipherLinear() {
+        const el = document.getElementById('decipherLinearInput');
+        if(!el) return;
+        const text = el.value.toUpperCase();
+        const a = parseInt(document.getElementById('decipherLinearA').value) || 1;
+        const b = parseInt(document.getElementById('decipherLinearB').value) || 0;
+        let aInv = modInverse(a, 26);
+        let out = '';
+        for (let i = 0; i < text.length; i++) {
+            const code = text.charCodeAt(i);
+            if (code >= 65 && code <= 90) {
+                let y = code - 65;
+                let decrypted = (aInv * (y - b + 26)) % 26;
+                out += String.fromCharCode(decrypted + 65);
+            } else {
+                out += text[i];
+            }
+        }
+        document.getElementById('decipherLinearOutput').innerText = out || '...';
+    }
+
+    function showTab(tabName, btn) {
+        document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.nav-card').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-' + tabName).style.display = 'block';
+        btn.classList.add('active');
+        if (tabName === 'sem1') {
+            activeSemTab = 1;
+            closeModuleView();
+        } else if (tabName === 'sem2') {
+            activeSemTab = 2;
+            closeModuleView();
+        }
+    }
+
+    function toggleTheme() {
+        if (document.body.getAttribute('data-theme') === 'dark') {
+            document.body.removeAttribute('data-theme');
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+    }
+
+    renderModuleTables();
+    initCalc();
+</script>
+</body>
+</html>
